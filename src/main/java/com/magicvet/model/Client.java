@@ -1,5 +1,7 @@
 package main.java.com.magicvet.model;
 
+import main.java.com.magicvet.service.PetService;
+
 public class Client {
 
     private String firstName;
@@ -37,5 +39,14 @@ public class Client {
 
     public Pet getPet() {
         return pet;
+    }
+
+    public void addPet(){
+        if (pet == null){
+            PetService petService = new PetService();
+            pet = petService.registerNewPet();
+        } else {
+            System.out.println("This client already has a pet.");
+        }
     }
 }
