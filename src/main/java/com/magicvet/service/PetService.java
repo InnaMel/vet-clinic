@@ -6,7 +6,7 @@ import main.java.com.magicvet.model.Pet;
 
 public class PetService {
 
-    final private static String DOG_TYPE = "dog";
+    private static final String DOG_TYPE = "dog";
 
     public Pet registerNewPet() {
         Pet pet;
@@ -14,10 +14,10 @@ public class PetService {
         System.out.print("Type (dog / cat / other): ");
         String type = Main.SCANNER.nextLine();
 
-        if (DOG_TYPE.equals(type)){
+        if (DOG_TYPE.equalsIgnoreCase(type)){
             pet = buildDog();
         } else {
-            pet = buildPet(type);
+            pet = buildPet(type.toLowerCase());
         }
 
             return pet;
