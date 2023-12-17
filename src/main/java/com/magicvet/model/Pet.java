@@ -1,5 +1,6 @@
 package main.java.com.magicvet.model;
 
+import java.util.Locale;
 import java.util.Objects;
 
 public class Pet {
@@ -46,7 +47,7 @@ public class Pet {
     }
 
     public void setSex(String sex) {
-        this.sex = sex;
+        this.sex = sex.toLowerCase();
     }
 
     public String getSex() {
