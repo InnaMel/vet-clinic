@@ -16,7 +16,7 @@ public class Client {
         return "Client: {"
                 + "\n\tfirstName = " + firstName
                 + ", lastName = " + lastName
-                + ", email = " + email
+                + ", email = \"" + email + "\""
                 + ",\n\tPet: " + pet
                 + "\n}";
     }

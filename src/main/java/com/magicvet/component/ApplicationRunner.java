@@ -15,12 +15,12 @@ public class ApplicationRunner {
         if (Authenticator.auth()) {
             Client client = clientService.registerNewClient();
 
-            if (client != null){
+            if (client != null) {
                 System.out.println("Do you want register pet?");
                 System.out.print("Answer (yes/y or no/n): ");
                 String answer = Main.SCANNER.nextLine().toLowerCase();
 
-                if (answer.equals("yes") || answer.equals("y")){
+                if (answer.equals("yes") || answer.equals("y")) {
                     addPetToClient(client);
                 } else {
                     System.out.println("You can register pet later.");
@@ -31,13 +31,16 @@ public class ApplicationRunner {
         }
     }
 
-    private void addPetToClient(Client client){
+    private void addPetToClient(Client client) {
         System.out.println("Adding a new pet.");
 
-        Pet pet =  petService.registerNewPet();
-        client.setPet(pet);
-        pet.setOwnerName(client.getFirstName() + " " + client.getLastName());
+        Pet pet = petService.registerNewPet();
 
-        System.out.println("Pet has been added.");
+        if (pet != null) {
+            client.setPet(pet);
+            pet.setOwnerName(client.getFirstName() + " " + client.getLastName());
+
+            System.out.println("Pet has been added.");
+        }
     }
 }
