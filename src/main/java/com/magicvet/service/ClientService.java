@@ -34,7 +34,7 @@ public class ClientService {
         if (Validation.isNameValid(fistName)) {
             client.setFirstName(fistName);
         } else {
-            client.setFirstName(getUserInput());
+            client.setFirstName(checkUserInput());
         }
 
         System.out.print("Last name: ");
@@ -42,13 +42,13 @@ public class ClientService {
         if (Validation.isNameValid(lastName)) {
             client.setLastName(lastName);
         } else {
-            client.setLastName(getUserInput());
+            client.setLastName(checkUserInput());
         }
 
         return client;
     }
 
-    private static String getUserInput() {
+    private static String checkUserInput() {
         System.out.println("Provided data is invalid.");
         System.out.println("NOTE: allowed Latin and dash symbol.");
         System.out.print("Your data: ");
