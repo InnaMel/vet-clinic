@@ -35,14 +35,47 @@ public class PetService {
         System.out.print("Name: ");
         pet.setName(Main.SCANNER.nextLine());
 
-        System.out.print("Sex (male / female): ");
-        pet.setSex(Main.SCANNER.nextLine());
+        System.out.print("Sex (male(m) / female(f)): ");
+        String gender=(Main.SCANNER.nextLine()).equals('m') ? "male" : "female";
+        pet.setSex(gender);
 
         if (type.equals(DOG_TYPE)) {
-            System.out.print("Size (xS / S / M / L / xL): ");
-            ((Dog) pet).setSize(Main.SCANNER.nextLine());
+            System.out.print("Size (XS / S / M / L / XL): ");
+            String size = Main.SCANNER.nextLine().toUpperCase();
+            ((Dog) pet).setSize(Dog.Size.valueOf(size));
         }
 
+        System.out.println("Health State.");
+        pet.setHealthState(getCurrentHealthState());
+
         return pet;
+    }
+
+    private Pet.HealthState getCurrentHealthState() {
+        Pet.HealthState currentHealthState = null;
+        boolean isInputCorrect = false;
+
+        System.out.println("\t1 - emergency;\n" +
+                "\t2 - hospitalization;\n" +
+                "\t3 - homeTreatment;\n" +
+                "\t4 - consultation;\n" +
+                "\t5 - healthy;");
+
+        System.out.print("Type rate of Health State: ");
+        String inputHealthState = Main.SCANNER.nextLine();
+
+        for (var state : Pet.HealthState.values()) {
+            if (state.getValue() == Integer.parseInt(inputHealthState)) {
+                currentHealthState = state;
+                isInputCorrect = true;
+                break;
+            }
+        }
+
+        if (!isInputCorrect) {
+            System.out.println("Incorrect input. \"Health State\" recorded as \"Consultation\"");
+            currentHealthState = Pet.HealthState.consultation;
+        }
+        return currentHealthState;
     }
 }
