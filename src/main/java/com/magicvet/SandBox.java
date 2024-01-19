@@ -1,5 +1,6 @@
 package main.java.com.magicvet;
 
+import main.java.com.magicvet.model.Client;
 import main.java.com.magicvet.model.Dog;
 import main.java.com.magicvet.model.Cat;
 import main.java.com.magicvet.model.Pet;
@@ -16,6 +17,9 @@ public class SandBox {
 
         System.out.println("TEST CATS AGE");
         PetRepository.testPetCompareAge_shouldBeOrderByAscending();
+
+        System.out.println("\n *************");
+        System.out.println(new Client());
     }
 }
 
