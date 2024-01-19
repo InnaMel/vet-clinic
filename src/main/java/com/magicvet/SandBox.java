@@ -16,6 +16,9 @@ public class SandBox {
 
         System.out.println("TEST CATS AGE");
         PetRepository.testPetCompareAge_shouldBeOrderByAscending();
+
+        System.out.println("\n *************");
+        System.out.println(new Cat());
     }
 }
 
