@@ -6,7 +6,7 @@ import java.util.Objects;
 
 public abstract class Pet {
 
-    private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("HH:mm dd/MM/yyyy");
+    private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
 
     private String type;
     private String sex;
@@ -42,8 +42,8 @@ public abstract class Pet {
                 + ", sex = " + sex
                 + ", age = " + age
                 + ", name = " + name
-                + ", registrationDate = " + registrationDate.format(FORMATTER)
-                + "}";
+                + ", registration date = " + registrationDate.format(FORMATTER)
+                + "}\n\t";
     }
 
     @Override

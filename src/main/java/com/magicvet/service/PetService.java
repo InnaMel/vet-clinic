@@ -64,12 +64,18 @@ public class PetService {
         System.out.print("Type rate of Health State: ");
         String inputHealthState = Main.SCANNER.nextLine();
 
-        for (var state : Pet.HealthState.values()) {
-            if (state.getValue() == Integer.parseInt(inputHealthState)) {
-                currentHealthState = state;
-                isInputCorrect = true;
-                break;
+        try {
+
+            for (var state : Pet.HealthState.values()) {
+                if (state.getValue() == Integer.parseInt(inputHealthState)) {
+                    currentHealthState = state;
+                    isInputCorrect = true;
+                    break;
+                }
             }
+        }
+        catch (NumberFormatException e){
+            isInputCorrect = false;
         }
 
         if (!isInputCorrect) {
