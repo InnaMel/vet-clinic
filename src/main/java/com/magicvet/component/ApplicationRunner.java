@@ -16,17 +16,23 @@ public class ApplicationRunner {
             Client client = clientService.registerNewClient();
 
             if (client != null) {
-                System.out.println("Do you want register pet?");
-                System.out.print("Answer (yes/y or no/n): ");
-                String answer = Main.SCANNER.nextLine().toLowerCase();
-
-                if (answer.equals("yes") || answer.equals("y")) {
-                    addPetToClient(client);
-                } else {
-                    System.out.println("You can register pet later.");
-                }
-
+                registerPets(client);
                 System.out.println(client);
+            }
+        }
+    }
+
+    private void registerPets(Client client){
+        boolean isContinueAddPet = true;
+
+        while (isContinueAddPet){
+            addPetToClient(client);
+
+            System.out.print("Do you want to add one more pet for current client? (yes(y) / no(n)): ");
+            String answer = Main.SCANNER.nextLine();
+
+            if ("n".equals(answer)){
+                isContinueAddPet = false;
             }
         }
     }
@@ -37,7 +43,7 @@ public class ApplicationRunner {
         Pet pet = petService.registerNewPet();
 
         if (pet != null) {
-            client.setPet(pet);
+            client.addPet(pet);
             pet.setOwnerName(client.getFirstName() + " " + client.getLastName());
 
             System.out.println("Pet has been added.");

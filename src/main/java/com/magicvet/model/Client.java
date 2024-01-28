@@ -1,18 +1,19 @@
 package main.java.com.magicvet.model;
 
 import main.java.com.magicvet.service.PetService;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Objects;
+import java.util.List;
 
 public class Client {
 
-    private static final DateTimeFormatter FORMATTER =DateTimeFormatter.ofPattern("dd-MM-yy HH:mm");
+    private static final DateTimeFormatter FORMATTER =DateTimeFormatter.ofPattern("dd/MM/yy HH:mm");
     private String firstName;
     private String lastName;
     private String email;
-    private Pet pet;
+    private  List<Pet> pets = new ArrayList<>();
     private final LocalDateTime registrationDate = LocalDateTime.now();
 
     @Override
@@ -21,9 +22,9 @@ public class Client {
                 + "\n\tfirstName = " + firstName
                 + ", lastName = " + lastName
                 + ", email = \"" + email + "\""
-                + ", registrationDate = \"" + registrationDate.format(FORMATTER) + "\""
-                + ",\n\tPet: " + pet
-                + "\n}";
+                + ", registration date = \"" + registrationDate.format(FORMATTER) + "\""
+                + ",\n\tPets:\n\t" + pets
+                + "}";
     }
 
     @Override
@@ -34,12 +35,12 @@ public class Client {
         return Objects.equals(firstName, client.firstName)
                 && Objects.equals(lastName, client.lastName)
                 && Objects.equals(email, client.email)
-                && Objects.equals(pet, client.pet);
+                && Objects.equals(pets, client.pets);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(firstName, lastName, email, pet);
+        return Objects.hash(firstName, lastName, email, pets);
     }
 
     public void setFirstName(String firstName) {
@@ -66,20 +67,15 @@ public class Client {
         return email;
     }
 
-    public void setPet(Pet pet) {
-        this.pet = pet;
+    public void setPet(List<Pet> pet) {
+        this.pets = pets;
     }
 
-    public Pet getPet() {
-        return pet;
+    public List<Pet> getPet() {
+        return pets;
     }
 
-    public void addPet(){
-        if (pet == null){
-            PetService petService = new PetService();
-            pet = petService.registerNewPet();
-        } else {
-            System.out.println("This client already has a pet.");
-        }
+    public void addPet(Pet pet){
+            pets.add(pet);
     }
 }
