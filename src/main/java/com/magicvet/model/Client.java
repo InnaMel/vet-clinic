@@ -9,12 +9,18 @@ import java.util.List;
 
 public class Client {
 
+    public enum Location{
+        KYIV,
+        DNIPRO,
+        ODESA
+    }
     private static final DateTimeFormatter FORMATTER =DateTimeFormatter.ofPattern("dd/MM/yy HH:mm");
     private String firstName;
     private String lastName;
     private String email;
     private  List<Pet> pets = new ArrayList<>();
     private final LocalDateTime registrationDate = LocalDateTime.now();
+    private Location location;
 
     @Override
     public String toString() {
@@ -22,6 +28,7 @@ public class Client {
                 + "\n\tfirstName = " + firstName
                 + ", lastName = " + lastName
                 + ", email = \"" + email + "\""
+                + ", location = \"" + location + "\""
                 + ", registration date = \"" + registrationDate.format(FORMATTER) + "\""
                 + ",\n\tPets:\n\t" + pets
                 + "}";
@@ -67,15 +74,23 @@ public class Client {
         return email;
     }
 
-    public void setPet(List<Pet> pet) {
+    public void setPets(List<Pet> pet) {
         this.pets = pets;
     }
 
-    public List<Pet> getPet() {
+    public List<Pet> getPets() {
         return pets;
     }
 
     public void addPet(Pet pet){
             pets.add(pet);
+    }
+
+    public Location getLocation() {
+        return location;
+    }
+
+    public void setLocation(Location location) {
+        this.location = location;
     }
 }

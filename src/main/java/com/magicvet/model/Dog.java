@@ -52,7 +52,8 @@ public class Dog extends Pet {
                 + ", age = " + super.getAge()
                 + ", name = " + super.getName()
                 + ", size = " + size
-                + "}";
+                + ", registration date = " + super.getRegistrationDateFormatted()
+                + "}\n\t";
     }
 
     @Override

@@ -15,6 +15,7 @@ public abstract class Pet {
     private String ownerName;
     private HealthState healthState;
     private final LocalDateTime registrationDate = LocalDateTime.now();
+    private final String registrationDateFormatted = registrationDate.format(FORMATTER);
 
     public enum HealthState {
         emergency(1),
@@ -42,8 +43,12 @@ public abstract class Pet {
                 + ", sex = " + sex
                 + ", age = " + age
                 + ", name = " + name
-                + ", registration date = " + registrationDate.format(FORMATTER)
+                + ", registration date = " + registrationDateFormatted
                 + "}\n\t";
+    }
+
+    public String getRegistrationDateFormatted() {
+        return registrationDateFormatted;
     }
 
     @Override
