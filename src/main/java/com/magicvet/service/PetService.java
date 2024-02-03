@@ -36,7 +36,8 @@ public class PetService {
         pet.setName(Main.SCANNER.nextLine());
 
         System.out.print("Sex (male(m) / female(f)): ");
-        String gender=(Main.SCANNER.nextLine()).equals('m') ? "male" : "female";
+        String answer = Main.SCANNER.nextLine().toLowerCase();
+        String gender=(answer.equals("m") || answer.equals("male")) ? "male" : "female";
         pet.setSex(gender);
 
         if (type.equals(DOG_TYPE)) {
