@@ -12,7 +12,8 @@ public class Client {
     public enum Location{
         KYIV,
         DNIPRO,
-        ODESA
+        ODESA,
+        UNKNOWN
     }
     private static final DateTimeFormatter FORMATTER =DateTimeFormatter.ofPattern("dd/MM/yy HH:mm");
     private String firstName;
@@ -31,7 +32,8 @@ public class Client {
                 + ", location = \"" + location + "\""
                 + ", registration date = \"" + registrationDate.format(FORMATTER) + "\""
                 + ",\n\tPets:\n\t" + pets
-                + "}";
+                + "}"
+                + "\n";
     }
 
     @Override

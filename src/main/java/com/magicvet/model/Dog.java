@@ -30,7 +30,8 @@ public class Dog extends Pet {
 
         L(4),
 
-        XL(5);
+        XL(5),
+        UNKNOWN(0);
 
         private final int value;
 
@@ -40,6 +41,18 @@ public class Dog extends Pet {
 
         public int getValue() {
             return value;
+        }
+
+        public static Size fromString(String value) {
+            for (Size size : values()) {
+                if (size.toString().equals(value)){
+                    return size;
+                }
+            }
+
+            System.out.println("Provided data is invalid. \"Size\" save as: " + UNKNOWN);
+
+            return UNKNOWN;
         }
     }
 

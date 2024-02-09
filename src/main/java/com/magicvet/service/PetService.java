@@ -37,13 +37,13 @@ public class PetService {
 
         System.out.print("Sex (male(m) / female(f)): ");
         String answer = Main.SCANNER.nextLine().toLowerCase();
-        String gender=(answer.equals("m") || answer.equals("male")) ? "male" : "female";
+        String gender = (answer.equals("m") || answer.equals("male")) ? "male" : "female";
         pet.setSex(gender);
 
         if (type.equals(DOG_TYPE)) {
             System.out.print("Size (XS / S / M / L / XL): ");
             String size = Main.SCANNER.nextLine().toUpperCase();
-            ((Dog) pet).setSize(Dog.Size.valueOf(size));
+            ((Dog) pet).setSize(Dog.Size.fromString(size));
         }
 
         System.out.println("Health State.");
@@ -53,8 +53,6 @@ public class PetService {
     }
 
     private Pet.HealthState getCurrentHealthState() {
-        Pet.HealthState currentHealthState = null;
-        boolean isInputCorrect = false;
 
         System.out.println("\t1 - emergency;\n" +
                 "\t2 - hospitalization;\n" +
@@ -63,26 +61,15 @@ public class PetService {
                 "\t5 - healthy;");
 
         System.out.print("Type rate of Health State: ");
-        String inputHealthState = Main.SCANNER.nextLine();
+        //Pet.HealthState healthState;
+        var inputHealthState = Integer.parseInt(Main.SCANNER.nextLine());
+        var healthState = Pet.HealthState.getNameByValue(inputHealthState);
 
-        try {
-
-            for (var state : Pet.HealthState.values()) {
-                if (state.getValue() == Integer.parseInt(inputHealthState)) {
-                    currentHealthState = state;
-                    isInputCorrect = true;
-                    break;
-                }
-            }
-        }
-        catch (NumberFormatException e){
-            isInputCorrect = false;
+        if (healthState == null) {
+            healthState = Pet.HealthState.CONSULTATION;
+            System.out.println("Provided data is invalid. \"Health State\" save as " + Pet.HealthState.CONSULTATION);
         }
 
-        if (!isInputCorrect) {
-            System.out.println("Incorrect input. \"Health State\" recorded as \"Consultation\"");
-            currentHealthState = Pet.HealthState.consultation;
-        }
-        return currentHealthState;
+        return healthState;
     }
 }

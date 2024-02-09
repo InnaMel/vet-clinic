@@ -48,12 +48,14 @@ public class EntityRegister {
         List<Client> fromKyiv = new ArrayList<>();
         List<Client> fromDnipro = new ArrayList<>();
         List<Client> fromOdesa = new ArrayList<>();
+        List<Client> unknownLocation = new ArrayList<>();
 
         for (Client client : clients) {
             switch (client.getLocation()) {
                 case KYIV -> fromKyiv.add(client);
                 case DNIPRO -> fromDnipro.add(client);
                 case ODESA -> fromOdesa.add(client);
+                case UNKNOWN -> unknownLocation.add(client);
             }
         }
 
@@ -61,6 +63,7 @@ public class EntityRegister {
         clientByLocation.put(Client.Location.KYIV, fromKyiv);
         clientByLocation.put(Client.Location.DNIPRO, fromDnipro);
         clientByLocation.put(Client.Location.ODESA, fromOdesa);
+        clientByLocation.put(Client.Location.UNKNOWN, unknownLocation);
 
         return clientByLocation;
     }
@@ -79,11 +82,9 @@ public class EntityRegister {
     private void registerPets(Client client) {
         String message = "Do you want to add one more pet for current client? (yes(y) / no(n)): ";
 
-        {
-            do {
-                addPetToClient(client);
-            } while (verifyRepeating(message));
-        }
+        do {
+            addPetToClient(client);
+        } while (verifyRepeating(message));
     }
 
     private void addPetToClient(Client client) {

@@ -17,7 +17,8 @@ public class ClientService {
             System.out.println("New client: "
                     + client.getFirstName() + ' '
                     + client.getLastName() + " ("
-                    + client.getEmail() + ")");
+                    + client.getEmail() + ") "
+                    + "from " + client.getLocation());
         } else {
             System.out.println("Provided email is invalid.");
         }
@@ -39,6 +40,7 @@ public class ClientService {
 
         System.out.print("Last name: ");
         String lastName = Main.SCANNER.nextLine();
+
         if (Validation.isNameValid(lastName)) {
             client.setLastName(lastName);
         } else {
@@ -46,8 +48,16 @@ public class ClientService {
         }
 
         System.out.print("Location: ");
-        String location = Main.SCANNER.nextLine().toUpperCase();
-        client.setLocation(Client.Location.valueOf(location));
+        Client.Location location;
+        String locationInput = Main.SCANNER.nextLine().toUpperCase();
+
+        try {
+            location = Client.Location.valueOf(locationInput);
+        } catch (IllegalArgumentException e) {
+            location = Client.Location.UNKNOWN;
+            System.out.println("Provided data is invalid. \"Location\" save as: " + Client.Location.UNKNOWN);
+        }
+        client.setLocation(location);
 
         return client;
     }
