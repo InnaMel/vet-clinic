@@ -18,20 +18,29 @@ public abstract class Pet {
     private final String registrationDateFormatted = registrationDate.format(FORMATTER);
 
     public enum HealthState {
-        emergency(1),
-        hospitalization(2),
-        homeTreatment(3),
-        consultation(4),
-        healthy(5);
+        EMERGENCY(1),
+        HOSPITALIZATION(2),
+        HOMETREATMENT(3),
+        CONSULTATION(4),
+        HEALTHY(5);
 
         private final int value;
+
+        public int getValue() {
+            return value;
+        }
 
         HealthState(int value){
             this.value = value;
         }
 
-        public int getValue() {
-            return value;
+        public static HealthState getNameByValue(int value){
+            for (HealthState healthState: HealthState.values()){
+                if (healthState.getValue() == value){
+                    return healthState;
+                }
+            }
+            return null;
         }
     }
 
