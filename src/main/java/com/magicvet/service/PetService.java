@@ -5,12 +5,14 @@ import main.java.com.magicvet.model.Cat;
 import main.java.com.magicvet.model.Dog;
 import main.java.com.magicvet.model.Pet;
 
+import java.util.Optional;
+
 public class PetService {
 
     private static final String DOG_TYPE = "dog";
     private static final String CAT_TYPE = "cat";
 
-    public Pet registerNewPet() {
+    public Optional<Pet> registerNewPet() {
         Pet pet = null;
 
         System.out.print("Type (dog / cat): ");
@@ -22,7 +24,7 @@ public class PetService {
             System.out.println("Unknown pet type: " + type);
         }
 
-        return pet;
+        return Optional.ofNullable(pet);
     }
 
     private Pet buildPet(String type) {

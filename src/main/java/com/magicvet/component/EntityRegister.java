@@ -63,14 +63,14 @@ public class EntityRegister {
     private void addPetToClient(Client client) {
         System.out.println("Adding a new pet.");
 
-        Pet pet = petService.registerNewPet();
+        Optional<Pet> pet = petService.registerNewPet();
+        pet.ifPresent(client::addPet);
+        addOwnerToPet(pet.get(), client);
+        System.out.println("Pet has been added.");
+    }
 
-        if (pet != null) {
-            client.addPet(pet);
-            pet.setOwnerName(client.getFirstName() + " " + client.getLastName());
-
-            System.out.println("Pet has been added.");
-        }
+    private void addOwnerToPet(Pet pet, Client client) {
+        pet.setOwnerName(client.getFirstName() + " " + client.getLastName());
     }
 
     private boolean verifyRepeating(String message) {
