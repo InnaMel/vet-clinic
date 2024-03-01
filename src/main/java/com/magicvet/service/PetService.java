@@ -61,7 +61,6 @@ public class PetService {
                 "\t5 - healthy;");
 
         System.out.print("Type rate of Health State: ");
-        //Pet.HealthState healthState;
         var inputHealthState = Integer.parseInt(Main.SCANNER.nextLine());
         var healthState = Pet.HealthState.getNameByValue(inputHealthState);
 
