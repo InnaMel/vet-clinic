@@ -10,9 +10,9 @@ public class Authenticator {
         boolean accepted = false;
         for (int i = 0; i < 3; i++) {
             System.out.print("Password: ");
-            String input = Main.SCANNER.nextLine();
+            String inputPassword = Main.SCANNER.nextLine();
 
-            if (PASSWORD.equals(input)) {
+            if (PASSWORD.equals(inputPassword)) {
                 accepted = true;
                 break;
             } else {

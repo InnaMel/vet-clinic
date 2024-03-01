@@ -16,12 +16,12 @@ public class PetService {
         Pet pet = null;
 
         System.out.print("Type (dog / cat): ");
-        String type = Main.SCANNER.nextLine().toLowerCase();
+        String inputType = Main.SCANNER.nextLine().toLowerCase();
 
-        if (DOG_TYPE.equals(type) || CAT_TYPE.equals(type)) {
-            pet = buildPet(type);
+        if (DOG_TYPE.equals(inputType) || CAT_TYPE.equals(inputType)) {
+            pet = buildPet(inputType);
         } else {
-            System.out.println("Unknown pet type: " + type);
+            System.out.println("Unknown pet inputType: " + inputType);
         }
 
         return Optional.ofNullable(pet);
@@ -38,14 +38,14 @@ public class PetService {
         pet.setName(Main.SCANNER.nextLine());
 
         System.out.print("Sex (male(m) / female(f)): ");
-        String answer = Main.SCANNER.nextLine().toLowerCase();
-        String gender = (answer.equals("m") || answer.equals("male")) ? "male" : "female";
+        String inputGender = Main.SCANNER.nextLine().toLowerCase();
+        String gender = (inputGender.equals("m") || inputGender.equals("male")) ? "male" : "female";
         pet.setSex(gender);
 
         if (type.equals(DOG_TYPE)) {
             System.out.print("Size (XS / S / M / L / XL): ");
-            String size = Main.SCANNER.nextLine().toUpperCase();
-            ((Dog) pet).setSize(Dog.Size.fromString(size));
+            String inputSize = Main.SCANNER.nextLine().toUpperCase();
+            ((Dog) pet).setSize(Dog.Size.fromString(inputSize));
         }
 
         System.out.println("Health State.");

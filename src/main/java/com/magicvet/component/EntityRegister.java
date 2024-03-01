@@ -76,10 +76,10 @@ public class EntityRegister {
     private boolean verifyRepeating(String message) {
         System.out.print(message);
 
-        String answer = Main.SCANNER.nextLine();
-        if ("y".equals(answer)) {
+        String inputAnswerYesNo = Main.SCANNER.nextLine();
+        if ("y".equals(inputAnswerYesNo)) {
             return true;
-        } else if ("n".equals(answer)) {
+        } else if ("n".equals(inputAnswerYesNo)) {
             return false;
         } else {
             System.out.println("Incorrect data. Please try again.");
