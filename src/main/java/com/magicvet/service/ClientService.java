@@ -22,7 +22,7 @@ public class ClientService {
                     + client.getEmail() + ") "
                     + "from " + client.getLocation());
         } else {
-            System.out.println("Provided inputEmail is invalid.");
+            System.out.println("Provided Email is invalid.");
         }
 
         return Optional.ofNullable(client);

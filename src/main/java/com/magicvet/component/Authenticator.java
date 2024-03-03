@@ -4,7 +4,7 @@ import main.java.com.magicvet.Main;
 
 public class Authenticator {
 
-    private static final String PASSWORD = "default";
+    private static final String PASSWORD = "1";
 
     public static boolean auth() {
         boolean accepted = false;
