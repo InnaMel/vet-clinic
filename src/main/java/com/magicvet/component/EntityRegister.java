@@ -7,9 +7,10 @@ import main.java.com.magicvet.service.ClientService;
 import main.java.com.magicvet.service.PetService;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 public class EntityRegister {
     private final ClientService clientService = new ClientService();
@@ -20,13 +21,12 @@ public class EntityRegister {
         List<Client> clients = new ArrayList<>();
         String message = "Do you want to add one more client? (yes(y) / no(n)): ";
         do {
-            Client client = addClient();
-            if (client != null) {
-                clients.add(client);
-            }
+            Optional<Client> client = addClient();
+            client.ifPresent(clients::add);
         } while (verifyRepeating(message));
 
-        Map<Client.Location, List<Client>> clientByLocation = groupClients(clients);
+        Map<Client.Location, List<Client>> clientByLocation = clients.stream()
+                .collect(Collectors.groupingBy(Client::getLocation));
 
         printClients(clientByLocation);
     }
@@ -44,37 +44,9 @@ public class EntityRegister {
         }
     }
 
-    private Map<Client.Location, List<Client>> groupClients(List<Client> clients) {
-        List<Client> fromKyiv = new ArrayList<>();
-        List<Client> fromDnipro = new ArrayList<>();
-        List<Client> fromOdesa = new ArrayList<>();
-        List<Client> unknownLocation = new ArrayList<>();
-
-        for (Client client : clients) {
-            switch (client.getLocation()) {
-                case KYIV -> fromKyiv.add(client);
-                case DNIPRO -> fromDnipro.add(client);
-                case ODESA -> fromOdesa.add(client);
-                case UNKNOWN -> unknownLocation.add(client);
-            }
-        }
-
-        Map<Client.Location, List<Client>> clientByLocation = new HashMap<>();
-        clientByLocation.put(Client.Location.KYIV, fromKyiv);
-        clientByLocation.put(Client.Location.DNIPRO, fromDnipro);
-        clientByLocation.put(Client.Location.ODESA, fromOdesa);
-        clientByLocation.put(Client.Location.UNKNOWN, unknownLocation);
-
-        return clientByLocation;
-    }
-
-    private Client addClient() {
-        Client client = clientService.registerNewClient();
-
-        if (client != null) {
-            registerPets(client);
-            System.out.println(client);
-        }
+    private Optional<Client> addClient() {
+        Optional<Client> client = clientService.registerNewClient();
+        client.ifPresent(this::registerPets);
 
         return client;
     }
@@ -84,29 +56,30 @@ public class EntityRegister {
 
         do {
             addPetToClient(client);
+            System.out.println(client);
         } while (verifyRepeating(message));
     }
 
     private void addPetToClient(Client client) {
         System.out.println("Adding a new pet.");
 
-        Pet pet = petService.registerNewPet();
+        Optional<Pet> pet = petService.registerNewPet();
+        pet.ifPresent(client::addPet);
+        addOwnerToPet(pet.get(), client);
+        System.out.println("Pet has been added.");
+    }
 
-        if (pet != null) {
-            client.addPet(pet);
-            pet.setOwnerName(client.getFirstName() + " " + client.getLastName());
-
-            System.out.println("Pet has been added.");
-        }
+    private void addOwnerToPet(Pet pet, Client client) {
+        pet.setOwnerName(client.getFirstName() + " " + client.getLastName());
     }
 
     private boolean verifyRepeating(String message) {
         System.out.print(message);
 
-        String answer = Main.SCANNER.nextLine();
-        if ("y".equals(answer)) {
+        String inputAnswerYesNo = Main.SCANNER.nextLine();
+        if ("y".equals(inputAnswerYesNo)) {
             return true;
-        } else if ("n".equals(answer)) {
+        } else if ("n".equals(inputAnswerYesNo)) {
             return false;
         } else {
             System.out.println("Incorrect data. Please try again.");

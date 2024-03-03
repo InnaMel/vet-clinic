@@ -3,27 +3,29 @@ package main.java.com.magicvet.service;
 import main.java.com.magicvet.Main;
 import main.java.com.magicvet.model.Client;
 
+import java.util.Optional;
+
 public class ClientService {
 
-    public Client registerNewClient() {
+    public Optional<Client> registerNewClient() {
         Client client = null;
 
         System.out.println("Please provide client details.");
         System.out.print("Email: ");
-        String email = Main.SCANNER.nextLine();
+        String inputEmail = Main.SCANNER.nextLine();
 
-        if (Validation.isEmailValid(email)) {
-            client = buildClient(email);
+        if (Validation.isEmailValid(inputEmail)) {
+            client = buildClient(inputEmail);
             System.out.println("New client: "
                     + client.getFirstName() + ' '
                     + client.getLastName() + " ("
                     + client.getEmail() + ") "
                     + "from " + client.getLocation());
         } else {
-            System.out.println("Provided email is invalid.");
+            System.out.println("Provided Email is invalid.");
         }
 
-        return client;
+        return Optional.ofNullable(client);
     }
 
     private static Client buildClient(String email) {
@@ -31,28 +33,28 @@ public class ClientService {
         client.setEmail(email);
 
         System.out.print("First name: ");
-        String fistName = Main.SCANNER.nextLine();
-        if (Validation.isNameValid(fistName)) {
-            client.setFirstName(fistName);
+        String inputFistName = Main.SCANNER.nextLine();
+        if (Validation.isNameValid(inputFistName)) {
+            client.setFirstName(inputFistName);
         } else {
             client.setFirstName(checkUserInput());
         }
 
         System.out.print("Last name: ");
-        String lastName = Main.SCANNER.nextLine();
+        String inputLastName = Main.SCANNER.nextLine();
 
-        if (Validation.isNameValid(lastName)) {
-            client.setLastName(lastName);
+        if (Validation.isNameValid(inputLastName)) {
+            client.setLastName(inputLastName);
         } else {
             client.setLastName(checkUserInput());
         }
 
         System.out.print("Location: ");
         Client.Location location;
-        String locationInput = Main.SCANNER.nextLine().toUpperCase();
+        String inputLocation = Main.SCANNER.nextLine().toUpperCase();
 
         try {
-            location = Client.Location.valueOf(locationInput);
+            location = Client.Location.valueOf(inputLocation);
         } catch (IllegalArgumentException e) {
             location = Client.Location.UNKNOWN;
             System.out.println("Provided data is invalid. \"Location\" save as: " + Client.Location.UNKNOWN);

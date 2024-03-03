@@ -4,15 +4,15 @@ import main.java.com.magicvet.Main;
 
 public class Authenticator {
 
-    private static final String PASSWORD = "default";
+    private static final String PASSWORD = "1";
 
     public static boolean auth() {
         boolean accepted = false;
         for (int i = 0; i < 3; i++) {
             System.out.print("Password: ");
-            String input = Main.SCANNER.nextLine();
+            String inputPassword = Main.SCANNER.nextLine();
 
-            if (PASSWORD.equals(input)) {
+            if (PASSWORD.equals(inputPassword)) {
                 accepted = true;
                 break;
             } else {

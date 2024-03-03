@@ -86,7 +86,7 @@ public abstract class Pet {
     }
 
     public void setSex(String sex) {
-        this.sex = sex.toLowerCase();
+        this.sex = sex;
     }
 
     public String getSex() {
